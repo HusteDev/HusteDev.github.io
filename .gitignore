@@ -1,3 +1,14 @@
+# Ignore everything that's not needed for the static site build
+husted-dot-dev/node_modules/
+husted-dot-dev/.svelte-kit/
+husted-dot-dev/.vite/
+husted-dot-dev/build/
+husted-dot-dev/.env
+husted-dot-dev/.DS_Store
+husted-dot-dev/e2e/
+husted-dot-dev/messages/
+husted-dot-dev/project.inlang/
+
 # Logs
 logs
 *.log
@@ -37,9 +48,13 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+.build/
+build/
+.svelte-kit/
 
 # Dependency directories
 node_modules/
+.package-lock.json
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
@@ -134,3 +149,18 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Vite cache
+.vite/
+
+# VSCode and OS metadata
+.vscode/
+.DS_Store
+Thumbs.db
+
+# SvelteKit preview output
+.vercel/
+.netlify/
+
+# GitHub Pages artifact cache (optional if using Actions)
+gh-pages/
