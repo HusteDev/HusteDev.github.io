@@ -1,10 +1,19 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
+// src/lib/server/db/index.ts
+import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+import type { Sql } from 'postgres';
 import * as schema from './schema.js';
 import { env } from '$env/dynamic/private';
 
-if (!env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
+type Database = PostgresJsDatabase<typeof schema> & { $client: Sql };
 
-const client = postgres(env.DATABASE_URL);
+export let db: Database | null = null;
 
-export const db = drizzle(client, { schema });
+if (typeof process !== 'undefined' && env.DATABASE_URL?.startsWith('postgres://')) {
+    try {
+        const client = postgres(env.DATABASE_URL);
+        db = drizzle(client, { schema });
+    } catch (err) {
+        console.warn('Failed to initialize DB client:', err instanceof Error ? err.message : err);
+    }
+}

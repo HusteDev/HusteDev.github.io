@@ -1,13 +1,38 @@
-# Ignore everything that's not needed for the static site build
-husted-dot-dev/node_modules/
-husted-dot-dev/.svelte-kit/
-husted-dot-dev/.vite/
-husted-dot-dev/build/
-husted-dot-dev/.env
-husted-dot-dev/.DS_Store
-husted-dot-dev/e2e/
-husted-dot-dev/messages/
-husted-dot-dev/project.inlang/
+# SvelteKit specific files
+e2e/
+messages/
+project.inlang/
+
+#tests
+test-results
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+/dist
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Paraglide
+src/lib/paraglide
+
+# Storybook
+.storybook/
+*storybook.log
+storybook-static
+
 
 # Logs
 logs

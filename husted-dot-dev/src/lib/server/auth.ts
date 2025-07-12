@@ -16,6 +16,8 @@ export function generateSessionToken() {
 }
 
 export async function createSession(token: string, userId: string) {
+	if (!db) throw new Error('Database is not initialized');
+
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const session: table.Session = {
 		id: sessionId,
@@ -26,11 +28,13 @@ export async function createSession(token: string, userId: string) {
 	return session;
 }
 
+
 export async function validateSessionToken(token: string) {
+	if (!db) throw new Error('Database is not initialized');
+
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const [result] = await db
 		.select({
-			// Adjust user table here to tweak returned data
 			user: { id: table.user.id, username: table.user.username },
 			session: table.session
 		})
@@ -61,11 +65,14 @@ export async function validateSessionToken(token: string) {
 	return { session, user };
 }
 
+
 export type SessionValidationResult = Awaited<ReturnType<typeof validateSessionToken>>;
 
 export async function invalidateSession(sessionId: string) {
+	if (!db) throw new Error('Database is not initialized');
 	await db.delete(table.session).where(eq(table.session.id, sessionId));
 }
+
 
 export function setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date) {
 	event.cookies.set(sessionCookieName, token, {

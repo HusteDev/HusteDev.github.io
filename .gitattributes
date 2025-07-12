@@ -1,2 +1,45 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Normalize all text files to LF
+* text=auto eol=lf
+
+# Ensure scripts use LF endings (important for Unix environments)
+*.sh text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Lock binary files so Git doesn't try to diff or merge
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.svg binary
+*.ico binary
+*.pdf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+
+# Treat lock files as text but don't normalize line endings
+pnpm-lock.yaml -text
+
+# Mark config files as text
+*.config.js text
+*.config.ts text
+*.rc text
+
+# GitHub linguist overrides (optional)
+*.svelte linguist-language=Svelte
+*.ts linguist-language=TypeScript
+*.d.ts linguist-language=TypeScript
+
+# Prettier config
+.prettierrc text
+.prettierignore text
+
+# Exclude build output (if committed) from language stats
+/build/** linguist-vendored
+/dist/** linguist-vendored
